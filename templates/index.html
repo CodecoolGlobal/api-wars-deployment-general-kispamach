@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 style="padding-bottom: 3%;">Star Wars universe planet</h1>
+    <div class="btn-group" role="group" aria-label="Basic example" style="padding-bottom: 3%;">
+        <a class="btn btn-primary{{ '' if planets['previous'] else 'disable'}}" href="/page/{{ planets['previous'] }}" role="button">Previous</a>
+        <a class="btn btn-primary{{ '' if planets['next'] else 'disable'}}" href="/page/{{ planets['next'] }}" role="button">Next</a>
+    </div>
+    <table class="table table-warning table-striped table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Diameter</th>
+                <th scope="col">Climate</th>
+                <th scope="col">Terrian</th>
+                <th scope="col">Surface Water Percetange</th>
+                <th scope="col">Population</th>
+                <th scope="col">Residents</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for planet in planets['results'] %}
+                {% set population = planet.population | int %}
+            <tr>
+                <td>{{ planet.name }}</td>
+                <td>{{ planet.diameter }}</td>
+                <td>{{ planet.climate }}</td>
+                <td>{{ planet.terrien }}</td>
+                <td>{{ planet.surface_water + '%' if planet.surface_water != 'unknown' else 'unknown' }}</td>
+                <td>{{ "{:,} people".format(population) if population != 0 else 'unknown' }}</td>
+                <td>
+                    {% if planet.residents %}
+                        <button type="button" class="btn btn-secondary">{{ planet.residents | length | string + " resident(s)" }}</button>
+                    {% else %}
+                        No known residents
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
