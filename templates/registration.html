@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+
+    <div class="login">
+        <h1 class="title">Registration</h1>
+        <form action="/registration" method="POST">
+            <div class='login_input'>
+                <i class="fa fa-user"></i>
+                <input type="email" name="emailInput" id="emailInput" placeholder="Enter your email address" minlength="1" required>
+            </div>
+            <div class='login_input'>
+                <i class="fa fa-lock"></i>
+                <input type="password" name="passwordInput" id="password" placeholder="Enter your password" required>
+            </div>
+            <input type="submit" name="Register" id="Register" value="Register">
+        </form>
+        {% with messages = get_flashed_messages() %} 
+        {% if messages %} 
+        {% for message in messages %}
+        <h5>{{ message }}</h5>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

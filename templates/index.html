@@ -1,11 +1,42 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Residents of </h5>
+        </div>
+        <div class="modal-body">
+            <table class="table table-warning table-striped table-sm" >
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Height</th>
+                        <th scope="col">Mass</th>
+                        <th scope="col">Hair color</th>
+                        <th scope="col">Skin color</th>
+                        <th scope="col">Eye color</th>
+                        <th scope="col">Birth day</th>
+                        <th scope="col">Gender</th>
+                    </tr>
+                </thead>
+                <tbody id="modalTableBody"></tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
 <div class="container">
-    <h1 style="padding-bottom: 3%;">Star Wars universe planet</h1>
+    <h1 style="padding-bottom: 2%; padding-top: 2%;">Star Wars universe planet</h1>
     <div class="btn-group" role="group" aria-label="Basic example" style="padding-bottom: 3%;">
-        <a class="btn btn-primary{{ '' if planets['previous'] else 'disable'}}" href="/page/{{ planets['previous'] }}" role="button">Previous</a>
-        <a class="btn btn-primary{{ '' if planets['next'] else 'disable'}}" href="/page/{{ planets['next'] }}" role="button">Next</a>
+        <button class="btn btn-primary"  id ="prev" role="button">Previous</button>
+        <button class="btn btn-primary" id ="next" role="button">Next</button>
     </div>
     <table class="table table-warning table-striped table-sm">
         <thead>
@@ -17,29 +48,10 @@
                 <th scope="col">Surface Water Percetange</th>
                 <th scope="col">Population</th>
                 <th scope="col">Residents</th>
-                <th scope="col"></th>
             </tr>
         </thead>
-        <tbody>
-            {% for planet in planets['results'] %}
-                {% set population = planet.population | int %}
-            <tr>
-                <td>{{ planet.name }}</td>
-                <td>{{ planet.diameter }}</td>
-                <td>{{ planet.climate }}</td>
-                <td>{{ planet.terrien }}</td>
-                <td>{{ planet.surface_water + '%' if planet.surface_water != 'unknown' else 'unknown' }}</td>
-                <td>{{ "{:,} people".format(population) if population != 0 else 'unknown' }}</td>
-                <td>
-                    {% if planet.residents %}
-                        <button type="button" class="btn btn-secondary">{{ planet.residents | length | string + " resident(s)" }}</button>
-                    {% else %}
-                        No known residents
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
+        <tbody id="baseTable"></tbody>
     </table>
+    
 </div>
 {% endblock %}

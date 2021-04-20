@@ -1,7 +1,12 @@
-import json
-import requests
+import bcrypt
 
-def get_api(page):
-    url = f"https://swapi.dev/api/planets/?page={page}" if page else "https://swapi.dev/api/planets/"
-    result = requests.get(url=url)
-    return json.loads(result.content)
+
+def hash_password(plain_text_password):
+    # By using bcrypt, the salt is saved into the hash itself
+    hashed_bytes = bcrypt.hashpw(plain_text_password.encode('utf-8'), bcrypt.gensalt())
+    return hashed_bytes.decode('utf-8')
+
+
+def verify_password(plain_text_password, hashed_password):
+    hashed_bytes_password = hashed_password.encode('utf-8')
+    return bcrypt.checkpw(plain_text_password.encode('utf-8'), hashed_bytes_password)
