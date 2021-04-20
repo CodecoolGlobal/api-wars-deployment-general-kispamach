@@ -1,1 +1,1 @@
-web: gunicorn server:appgit merge
+web: gunicorn server:app
