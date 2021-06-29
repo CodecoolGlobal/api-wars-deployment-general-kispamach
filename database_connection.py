@@ -7,10 +7,10 @@ import urllib
 def get_connection_string():
     # setup connection string
     # to do this, please define these environment variables first
-    user_name = "quador"
-    password = "12345"
-    host = "localhost"
-    database_name = "apiwars"
+    user_name = "PSQL_USER_NAME"
+    password = "PSQL_PASSWORD"
+    host = "PSQL_HOST"
+    database_name = "PSQL_DB_NAME"
 
     env_variables_defined = user_name and password and host and database_name
 
